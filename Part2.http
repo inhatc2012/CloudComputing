@@ -1,0 +1,68 @@
+### main15.py
+
+### 할 일 생성
+POST http://127.0.0.1:8000/todos
+Content-Type: application/json
+
+{
+  "title": "우유 사기",
+  "completed": false
+}
+
+### 할 일 생성 (completed 생략 → 기본값 false)
+POST http://127.0.0.1:8000/todos
+Content-Type: application/json
+
+{
+  "title": "책 반납하기"
+}
+
+### 할 일 생성 (title 누락 → 422)
+POST http://127.0.0.1:8000/todos
+Content-Type: application/json
+
+{
+  "completed": true
+}
+
+### 할 일 목록 조회
+GET http://127.0.0.1:8000/todos
+
+### 할 일 목록 조회 (완료된 것만)
+GET http://127.0.0.1:8000/todos?completed=true
+
+### 할 일 목록 조회 (미완료만)
+GET http://127.0.0.1:8000/todos?completed=false
+
+### 할 일 단일 조회
+GET http://127.0.0.1:8000/todos/1
+
+### 존재하지 않는 id 조회 → 404
+GET http://127.0.0.1:8000/todos/99
+
+### 잘못된 타입의 id 조회 → 422
+GET http://127.0.0.1:8000/todos/abc
+
+### 할 일 수정
+PUT http://127.0.0.1:8000/todos/1
+Content-Type: application/json
+
+{
+  "title": "우유와 빵 사기",
+  "completed": true
+}
+
+### 존재하지 않는 id 수정 → 404
+PUT http://127.0.0.1:8000/todos/99
+Content-Type: application/json
+
+{
+  "title": "없는 할 일",
+  "completed": false
+}
+
+### 할 일 삭제 → 204
+DELETE http://127.0.0.1:8000/todos/2
+
+### 존재하지 않는 id 삭제 → 404
+DELETE http://127.0.0.1:8000/todos/99
